@@ -1,17 +1,25 @@
 "Recreated Itertools library"
 
-def count():
+def count(firstval=0, step=1):
     """
     Documentation
     """
-    pass
+    number = firstval
+    while True:
+        yield number
+        number += step
 
 
-def cycle():
+def cycle(iterable):
     """
     Documentation
     """
-    pass
+    index = 0
+    while 1:
+        yield iterable[index]
+        index += 1
+        if index >= len(iterable):
+            index -= len(iterable)
 
 
 def repeat():

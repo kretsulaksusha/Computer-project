@@ -23,11 +23,22 @@ def cycle(iterable):
             index -= len(iterable)
 
 
-def repeat():
+def repeat(value):
     """
-    Documentation
+    Return value forever
+
+    Parameters
+    ----------
+    value : any
+        Value to repeat
+
+    Yields
+    ------
+    value : any
+        Value to repeat
     """
-    pass
+    while True:
+        yield value
 
 
 def product():

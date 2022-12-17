@@ -24,18 +24,47 @@ def cycle(iterable):
             index -= len(iterable)
 
 
-def repeat():
+def repeat(value):
     """
-    Documentation
+    Return value forever
+
+    Parameters
+    ----------
+    value : any
+        Value to repeat
+
+    Yields
+    ------
+    value : any
+        Value to repeat
     """
-    pass
+    while True:
+        yield value
 
 
-def product():
+def product(*iterables):
     """
-    Documentation
+    Generate a cartesian product of input iterables
+
+    Parameters
+    ----------
+    *iterables : iterable
+        Iterables to generate a cartesian product of
+
+    Yields
+    ------
+    tuple
+        Tuple of elements from each iterable
     """
-    pass
+    if len(iterables) == 0:
+        yield ()
+    if len(iterables) == 1:
+        for element in iterables[0]:
+            yield (element,)
+    if len(iterables) > 1:
+        for element in iterables[0]:
+            for element2 in product(*iterables[1:]):
+                yield (element, *element2)
 
 
 

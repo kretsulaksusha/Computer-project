@@ -76,24 +76,14 @@ def permutations(iterable, number=None):
     """
     if number is None:
         number = len(iterable)
-
-    def make_all_permutations(to_iterate):
-        if len(to_iterate) <= 1:
-            return [to_iterate] if len(to_iterate) == 1 else []
-        result = []
-        length = len(to_iterate)
-
-        for index in range(length):
-            first = to_iterate[index]
-            other_elements = to_iterate[:index] + to_iterate[index+1:]
-            for permutation in make_all_permutations(other_elements):
-                if ([first, *permutation])[:number] not in result:
-                    result.append(([first, *permutation])[:number])
-        return result
-
-    all_permutations = make_all_permutations(iterable)
-    for element in all_permutations:
-        yield tuple(element)
+    elif number == 1:
+        for element in iterable:
+            yield (element,)
+    if number > 1:
+        for element in iterable:
+            for element2 in permutations(iterable, number-1):
+                if element not in element2:
+                    yield (element, *element2)
 
 
 def combinations():

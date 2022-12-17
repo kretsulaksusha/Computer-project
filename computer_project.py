@@ -1,5 +1,6 @@
 "Recreated Itertools library"
 
+from math import factorial
 
 def count(firstval=0, step=1):
     """
@@ -37,30 +38,34 @@ def product():
     pass
 
 
-def permutations(iterable, number=None):
+
+def permutation(iterable, number=None):
     """
-    Documenatation
+    Documentation
     """
     if number is None:
         number = len(iterable)
-
-    def make_all_permutations(to_iterate):
-        if len(to_iterate) <= 1:
-            return [to_iterate] if len(to_iterate) == 1 else []
-        result = []
-        length = len(to_iterate)
-
-        for index in range(length):
-            first = to_iterate[index]
-            other_elements = to_iterate[:index] + to_iterate[index+1:]
-            for permutation in make_all_permutations(other_elements):
-                if ([first, *permutation])[:number] not in result:
-                    result.append(([first, *permutation])[:number])
-        return result
-
-    all_permutations = make_all_permutations(iterable)
-    for element in all_permutations:
-        yield tuple(element)
+    history = []
+    yield tuple(iterable)[:number]
+    history.append(tuple(iterable)[:number])
+    for _ in range(int(factorial(len(iterable))-1)):
+        n = len(iterable)-1
+        j = n-1
+        while iterable[j]>iterable[j+1]:
+            j-=1
+        k = n
+        while iterable[j]>iterable[k]:
+            k-=1
+        iterable[j], iterable[k] = iterable[k], iterable[j]
+        r = n
+        s = j+1
+        while r>s:
+            iterable[r], iterable[s] = iterable[s], iterable[r]
+            r-=1
+            s+=1
+        if tuple(iterable)[:number] not in history:
+            history.append(tuple(iterable)[:number])
+            yield tuple(iterable)[:number]
 
 
 def combinations():
@@ -75,3 +80,4 @@ def combinations_with_replacement():
     Documentation
     """
     pass
+

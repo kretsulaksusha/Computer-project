@@ -68,7 +68,7 @@ def product(*iterables):
 
 
 
-def permutation(iterable, number=None):
+def permutations(iterable, number=None):
     """
     Documentation
     """
@@ -77,6 +77,7 @@ def permutation(iterable, number=None):
     history = []
     yield tuple(iterable)[:number]
     history.append(tuple(iterable)[:number])
+
     for _ in range(int(factorial(len(iterable))-1)):
         n = len(iterable)-1
         j = n-1

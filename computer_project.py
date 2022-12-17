@@ -60,11 +60,7 @@ def product(*iterables):
     if len(iterables) == 1:
         for element in iterables[0]:
             yield (element,)
-    if len(iterables) == 2:
-        for element in iterables[0]:
-            for element2 in iterables[1]:
-                yield (element, element2)
-    if len(iterables) > 2:
+    if len(iterables) > 1:
         for element in iterables[0]:
             for element2 in product(*iterables[1:]):
                 yield (element, *element2)

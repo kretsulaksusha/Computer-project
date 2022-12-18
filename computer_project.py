@@ -68,29 +68,35 @@ def product(*iterables):
 
 
 
-def permutations(iterable, number=None):
+def permutation(iterable, number=None):
     """
     Documentation
     """
+    if isinstance(iterable, str):
+        iterable = [*iterable]
     if number is None:
         number = len(iterable)
     history = set()
     yield tuple(iterable)[:number]
     history.add(tuple(iterable)[:number])
 
+    to_compare = list(range(len(iterable)))
+
     for _ in range(int(factorial(len(iterable))-1)):
         n = len(iterable)-1
         j = n-1
-        while iterable[j]>iterable[j+1]:
+        while to_compare[j]>to_compare[j+1]:
             j-=1
         k = n
-        while iterable[j]>iterable[k]:
+        while to_compare[j]>to_compare[k]:
             k-=1
         iterable[j], iterable[k] = iterable[k], iterable[j]
+        to_compare[j], to_compare[k] = to_compare[k], to_compare[j]
         r = n
         s = j+1
         while r>s:
             iterable[r], iterable[s] = iterable[s], iterable[r]
+            to_compare[r], to_compare[s] = to_compare[s], to_compare[r]
             r-=1
             s+=1
         if tuple(iterable)[:number] not in history:

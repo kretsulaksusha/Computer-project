@@ -72,15 +72,24 @@ def permutation(iterable, number=None):
     """
     Documentation
     """
-    if isinstance(iterable, str):
-        iterable = [*iterable]
+    if not hasattr(iterable, '__iter__'):
+        raise TypeError(f"'{type(iterable)}' object is not iterable")
+    iterable = list(iterable)
+    if number is None:
+        number = len(iterable)
+    if number < 0:
+        raise ValueError("r must be non-negative")
+    if number > len(iterable):
+        return None
     if number is None:
         number = len(iterable)
     history = set()
-    yield tuple(iterable)[:number]
-    history.add(tuple(iterable)[:number])
 
     to_compare = list(range(len(iterable)))
+
+    yield tuple(iterable[:number])
+    history.add(tuple(to_compare[:number]))
+
 
     for _ in range(int(factorial(len(iterable))-1)):
         n = len(iterable)-1
@@ -99,9 +108,9 @@ def permutation(iterable, number=None):
             to_compare[r], to_compare[s] = to_compare[s], to_compare[r]
             r-=1
             s+=1
-        if tuple(iterable)[:number] not in history:
-            history.add(tuple(iterable)[:number])
-            yield tuple(iterable)[:number]
+        if tuple(to_compare[:number]) not in history:
+            history.add(tuple(to_compare[:number]))
+            yield tuple(iterable[:number])
 
 
 def combinations():

@@ -74,9 +74,9 @@ def permutations(iterable, number=None):
     """
     if number is None:
         number = len(iterable)
-    history = []
+    history = set()
     yield tuple(iterable)[:number]
-    history.append(tuple(iterable)[:number])
+    history.add(tuple(iterable)[:number])
 
     for _ in range(int(factorial(len(iterable))-1)):
         n = len(iterable)-1
@@ -94,7 +94,7 @@ def permutations(iterable, number=None):
             r-=1
             s+=1
         if tuple(iterable)[:number] not in history:
-            history.append(tuple(iterable)[:number])
+            history.add(tuple(iterable)[:number])
             yield tuple(iterable)[:number]
 
 
@@ -110,4 +110,3 @@ def combinations_with_replacement():
     Documentation
     """
     pass
-

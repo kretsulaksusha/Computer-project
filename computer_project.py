@@ -1,4 +1,5 @@
 "Recreated Itertools library"
+from math import factorial
 
 from math import factorial
 
@@ -84,44 +85,66 @@ def permutation(iterable, number=None):
     if number is None:
         number = len(iterable)
     history = set()
+    elements_counts = {}
+    result_iterable = []
+    for element in iterable:
+        if isinstance(element, list):
+            element = tuple(element)
+            if element not in elements_counts:
+                result_iterable.append((element, -1, 0))
+            else:
+                result_iterable.append(
+                    (element, "was_list", elements_counts[element]))
+        elif element not in elements_counts:
+            result_iterable.append((element, 0))
+        else:
+            result_iterable.append((element, elements_counts[element]))
+        elements_counts[element] = elements_counts.get(element, 0) + 1
+    history.add(tuple(i[0] for i in result_iterable)[:number])
+    print(result_iterable)
+    yield tuple(
+        list(i[0]) if isinstance(i, tuple) and i[1] == -1 else i[0]
+        for i in result_iterable[:number]
+    )
 
-    to_compare = list(range(len(iterable)))
+    to_compare = list(range(len(result_iterable)))
 
-    yield tuple(iterable[:number])
-    history.add(tuple(to_compare[:number]))
-
-
-    for _ in range(int(factorial(len(iterable))-1)):
-        n = len(iterable)-1
-        j = n-1
-        while to_compare[j]>to_compare[j+1]:
-            j-=1
+    for _ in range(int(factorial(len(result_iterable)) - 1)):
+        n = len(result_iterable) - 1
+        j = n - 1
+        while to_compare[j] > to_compare[j + 1]:
+            j -= 1
         k = n
-        while to_compare[j]>to_compare[k]:
-            k-=1
-        iterable[j], iterable[k] = iterable[k], iterable[j]
+        while to_compare[j] > to_compare[k]:
+            k -= 1
+        result_iterable[j], result_iterable[k] = result_iterable[k], result_iterable[j]
         to_compare[j], to_compare[k] = to_compare[k], to_compare[j]
         r = n
-        s = j+1
-        while r>s:
-            iterable[r], iterable[s] = iterable[s], iterable[r]
+        s = j + 1
+        while r > s:
+            result_iterable[r], result_iterable[s] = (
+                result_iterable[s],
+                result_iterable[r],
+            )
             to_compare[r], to_compare[s] = to_compare[s], to_compare[r]
-            r-=1
-            s+=1
-        if tuple(to_compare[:number]) not in history:
-            history.add(tuple(to_compare[:number]))
-            yield tuple(iterable[:number])
+            r -= 1
+            s += 1
+        if tuple(result_iterable)[:number] not in history:
+            history.add(tuple(result_iterable)[:number])
+            yield tuple(
+                list(i[0]) if isinstance(
+                    i, tuple) and i[1] == -1 else i[0]
+                for i in result_iterable
+            )[:number]
 
 
 def combinations():
     """
     Documentation
     """
-    pass
 
 
 def combinations_with_replacement():
     """
     Documentation
     """
-    pass

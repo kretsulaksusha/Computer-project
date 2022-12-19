@@ -101,7 +101,6 @@ def permutation(iterable, number=None):
             result_iterable.append((element, elements_counts[element]))
         elements_counts[element] = elements_counts.get(element, 0) + 1
     history.add(tuple(i[0] for i in result_iterable)[:number])
-    print(result_iterable)
     yield tuple(
         list(i[0]) if isinstance(i, tuple) and i[1] == -1 else i[0]
         for i in result_iterable[:number]

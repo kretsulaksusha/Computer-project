@@ -2,9 +2,20 @@
 from math import factorial
 
 
-def count(firstval=0, step=1):
+def count(firstval: int | float = 0, step: int | float = 1):
     """
-    Documentation
+    Count from a number by step forever
+
+    Parameters
+    ----------
+    firstval : int | float, optional
+        Number to start counting from, by default 0
+    step : int | float, optional
+        Step to count by, by default 1
+
+    Yields
+    ------
+    int | float
     """
     number = firstval
     while True:
@@ -14,7 +25,16 @@ def count(firstval=0, step=1):
 
 def cycle(iterable):
     """
-    Documentation
+    Cycle through an iterable forever
+
+    Parameters
+    ----------
+    iterable : iterable
+        Iterable to cycle through
+
+    Yields
+    ------
+    any
     """
     index = 0
     while 1:
@@ -67,9 +87,21 @@ def product(*iterables):
                 yield (element, *element2)
 
 
-def permutations(iterable, number=None):
+def permutations(iterable, number: int = None):
     """
-    Documentation
+    Generate all permutations of length number of elements in iterable
+
+    Parameters
+    ----------
+    iterable : iterable
+        Iterable to generate permutations of
+    number : int, optional
+        Length of permutations, by default will be length of iterable
+
+    Yields
+    ------
+    tuple
+        Tuple of elements from iterable
     """
     if not hasattr(iterable, "__iter__"):
         raise TypeError(f"'{type(iterable)}' object is not iterable")

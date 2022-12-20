@@ -192,14 +192,33 @@ def combinations(iterable, number: int):
         if tuple(sorted(to_compare[:number])) not in history:
             history.add(tuple(sorted(to_compare[:number])))
             yield tuple(iterable[:number])
-
-
-def combinations_with_replacement(iterable, number: int):
+            
+def combinations_with_replacement(iterable, n: int):
     """
     Documentation
+    >>> combinations_with_replacement(list(range(2)), 2)
+    (0, 0), (0, 1), (1, 1)
     """
-    if not hasattr(iterable, '__iter__'):
-        raise TypeError(f"'{type(iterable)}' object is not iterable")
-    if not isinstance(number, int):
-        raise TypeError(f'number "{type(number)}" object cannot be interpreted as an integer')
-    return list(iter_tools.combinations_with_replacement(iterable, number))
+    el_lst = []
+    counter = 2
+    
+    if n < 2:
+        for el in iterable:
+            yield tuple(str(el))
+        return None
+    for el in range(len(iterable)):
+        for subel in range(el, len(iterable)):
+            el_lst.append([iterable[el], iterable[subel]])
+    while counter != n:
+        new_lst = []
+        for subel in iterable:
+            for ind in range(len(el_lst)):
+                part = sorted(el_lst[ind] + [subel])
+                if part in new_lst:
+                    continue
+                new_lst.append(part)
+        el_lst = new_lst
+        counter += 1
+    el_lst = sorted(el_lst)
+    for el in el_lst:
+        yield tuple(el)

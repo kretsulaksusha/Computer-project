@@ -202,3 +202,4 @@ def combinations_with_replacement(iterable, number: int):
         raise TypeError(f"'{type(iterable)}' object is not iterable")
     if not isinstance(number, int):
         raise TypeError(f'number "{type(number)}" object cannot be interpreted as an integer')
+    return list(iter_tools.combinations_with_replacement(iterable, number))

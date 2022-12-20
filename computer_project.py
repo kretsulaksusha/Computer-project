@@ -113,7 +113,7 @@ def combinations(iterable, number=None):
     """
     Documentation
     """
-    if not hasattr(iterable, 'iter'):
+    if not hasattr(iterable, '__iter__'):
         raise TypeError(f"'{type(iterable)}' object is not iterable")
     iterable = list(iterable)
     if number is None:

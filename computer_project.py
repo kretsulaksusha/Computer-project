@@ -17,6 +17,8 @@ def count(firstval: int | float = 0, step: int | float = 1):
     ------
     int | float
     """
+    if not isinstance(firstval, int) or not isinstance(step, int):
+        raise TypeError('a number is required')
     number = firstval
     while True:
         yield number
@@ -36,6 +38,8 @@ def cycle(iterable):
     ------
     any
     """
+    if not hasattr(iterable, "__iter__"):
+        raise TypeError(f"'{type(iterable)}' object is not iterable")
     index = 0
     while 1:
         yield iterable[index]
@@ -44,7 +48,7 @@ def cycle(iterable):
             index -= len(iterable)
 
 
-def repeat(value):
+def repeat(value, repeat=None):
     """
     Return value forever
 
@@ -58,11 +62,13 @@ def repeat(value):
     value : any
         Value to repeat
     """
+    if repeat is not None and not isinstance(repeat, int):
+        raise TypeError(f"'{type(repeat)}' object cannot be interpreted as an integer")
     while True:
         yield value
 
 
-def product(*iterables):
+def product(*iterables, repeat=1):
     """
     Generate a cartesian product of input iterables
 
@@ -76,6 +82,10 @@ def product(*iterables):
     tuple
         Tuple of elements from each iterable
     """
+    if not hasattr(iterables, "__iter__"):
+        raise TypeError(f"'{type(iterables)}' object is not iterable")
+    if not isinstance(repeat, int):
+        raise TypeError(f"'{type(iterables)}' object cannot be interpreted as an integer")
     if len(iterables) == 0:
         yield ()
     if len(iterables) == 1:
@@ -109,7 +119,7 @@ def permutations(iterable, number: int = None):
     if number is None:
         number = len(iterable)
     if number < 0:
-        raise ValueError("r must be non-negative")
+        raise ValueError("number must be non-negative")
     if number > len(iterable):
         return None
     history = set()
@@ -141,21 +151,19 @@ def permutations(iterable, number: int = None):
             yield tuple(iterable[:number])
 
 
-def combinations(iterable, number=None):
+def combinations(iterable, number: int):
     """
     Documentation
     """
     if not hasattr(iterable, '__iter__'):
         raise TypeError(f"'{type(iterable)}' object is not iterable")
     iterable = list(iterable)
-    if number is None:
-        number = len(iterable)
+    if not isinstance(number, int):
+        raise TypeError(f'number "{type(number)}" object cannot be interpreted as an integer')
     if number < 0:
-        raise ValueError("r must be non-negative")
+        raise ValueError("number must be non-negative")
     if number > len(iterable):
         return None
-    if number is None:
-        number = len(iterable)
     history = set()
 
     to_compare = list(range(len(iterable)))
@@ -186,7 +194,11 @@ def combinations(iterable, number=None):
             yield tuple(iterable[:number])
 
 
-def combinations_with_replacement():
+def combinations_with_replacement(iterable, number: int):
     """
     Documentation
     """
+    if not hasattr(iterable, '__iter__'):
+        raise TypeError(f"'{type(iterable)}' object is not iterable")
+    if not isinstance(number, int):
+        raise TypeError(f'number "{type(number)}" object cannot be interpreted as an integer')

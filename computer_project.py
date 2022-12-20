@@ -109,10 +109,49 @@ def permutations(iterable, number=None):
             yield tuple(iterable[:number])
 
 
-def combinations():
+def combinations(iterable, number=None):
     """
     Documentation
     """
+    if not hasattr(iterable, 'iter'):
+        raise TypeError(f"'{type(iterable)}' object is not iterable")
+    iterable = list(iterable)
+    if number is None:
+        number = len(iterable)
+    if number < 0:
+        raise ValueError("r must be non-negative")
+    if number > len(iterable):
+        return None
+    if number is None:
+        number = len(iterable)
+    history = set()
+
+    to_compare = list(range(len(iterable)))
+
+    yield tuple(iterable[:number])
+    history.add(tuple(sorted(to_compare[:number])))
+
+
+    for _ in range(int(factorial(len(iterable))-1)):
+        n = len(iterable)-1
+        j = n-1
+        while to_compare[j]>to_compare[j+1]:
+            j-=1
+        k = n
+        while to_compare[j]>to_compare[k]:
+            k-=1
+        iterable[j], iterable[k] = iterable[k], iterable[j]
+        to_compare[j], to_compare[k] = to_compare[k], to_compare[j]
+        r = n
+        s = j+1
+        while r>s:
+            iterable[r], iterable[s] = iterable[s], iterable[r]
+            to_compare[r], to_compare[s] = to_compare[s], to_compare[r]
+            r-=1
+            s+=1
+        if tuple(sorted(to_compare[:number])) not in history:
+            history.add(tuple(sorted(to_compare[:number])))
+            yield tuple(iterable[:number])
 
 
 def combinations_with_replacement():

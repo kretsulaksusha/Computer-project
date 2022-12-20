@@ -80,8 +80,6 @@ def permutations(iterable, number=None):
         raise ValueError("r must be non-negative")
     if number > len(iterable):
         return None
-    if number is None:
-        number = len(iterable)
     history = set()
 
     to_compare = list(range(len(iterable)))

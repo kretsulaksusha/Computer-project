@@ -67,7 +67,9 @@ Description: Generate all permutations of length `number` of elements in `iterab
 
 Get permutations of an iterable of length `number`
 
+
 Made by: Sviatoslav
+
 Helped: Ksenia, Radomyr
 ```python
 def permutations(iterable, number: int = None):
@@ -112,7 +114,9 @@ def permutations(iterable, number: int = None):
 - ### combinations()
 Description
 
+
 Made by: Natalia
+
 Helped: Ksenia
 ```python
 def combinations(iterable, number=None):

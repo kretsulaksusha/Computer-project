@@ -41,6 +41,8 @@ def cycle(iterable):
     if not hasattr(iterable, "__iter__"):
         raise TypeError(f"'{type(iterable)}' object is not iterable")
     index = 0
+    if isinstance(iterable, set):
+        iterable = list(iterable)
     while 1:
         yield iterable[index]
         index += 1
@@ -48,7 +50,7 @@ def cycle(iterable):
             index -= len(iterable)
 
 
-def repeat(value, repeat=None):
+def repeat(value, repeat_obj=None):
     """
     Return value forever
 
@@ -62,13 +64,19 @@ def repeat(value, repeat=None):
     value : any
         Value to repeat
     """
-    if repeat is not None and not isinstance(repeat, int):
-        raise TypeError(f"'{type(repeat)}' object cannot be interpreted as an integer")
-    while True:
-        yield value
+    if repeat_obj is not None and not isinstance(repeat_obj, int):
+        raise TypeError(f"'{type(repeat_obj)}' object cannot be interpreted as an integer")
+    if repeat_obj is not None and repeat_obj <= 0:
+        return []
+    if repeat_obj:
+        for _ in range(repeat_obj):
+            yield value
+    else:
+        while True:
+            yield value
 
 
-def product(*iterables, repeat=1):
+def product(*iterables, repeat_obj=1):
     """
     Generate a cartesian product of input iterables
 
@@ -84,8 +92,9 @@ def product(*iterables, repeat=1):
     """
     if not hasattr(iterables, "__iter__"):
         raise TypeError(f"'{type(iterables)}' object is not iterable")
-    if not isinstance(repeat, int):
-        raise TypeError(f"'{type(iterables)}' object cannot be interpreted as an integer")
+    if not isinstance(repeat_obj, int):
+        raise TypeError(f"'{type(repeat_obj)}' object cannot be interpreted as an integer")
+    iterables = iterables * repeat_obj
     if len(iterables) == 0:
         yield ()
     if len(iterables) == 1:

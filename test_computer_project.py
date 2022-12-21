@@ -114,29 +114,29 @@ class TestFunctions(unittest.TestCase):
 
     def test_combinations_with_replacement(self):
         """Combinations with replacement test."""
-        data = [[1, 2], (1, 2), {1, 'a'}, range(3), 'ABB', 'ABC', [1, [2]]]
+        data = [[1, 2], (1, 2), [1, 'a'], range(3), 'ABB', 'ABC', [1, [2]]]
         # self.assertEqual(list(cp.combinations_with_replacement(data[0], 1)), [(1,), (2,)])
-        # self.assertEqual(list(cp.combinations_with_replacement(data[1], 2)),
-        # [(1, 1), (1, 2), (2, 2)])
+        self.assertEqual(list(cp.combinations_with_replacement(data[1], 2)),
+        [(1, 1), (1, 2), (2, 2)])
         # self.assertEqual(list(cp.combinations_with_replacement(data[2], 2)),
         # [(1, 1), (1, 'a'), ('a', 'a')])
-        # self.assertEqual(list(cp.combinations_with_replacement(data[3], 2)),
-        # [(0, 0), (0, 1), (0, 2), (1, 1), (1, 2), (2, 2)])
-        # self.assertEqual(list(cp.combinations_with_replacement(data[4], 2)),
-        # [('A', 'A'), ('A', 'B'), ('A', 'B'), ('B', 'B'), ('B', 'B'), ('B', 'B')])
-        # self.assertEqual(list(cp.combinations_with_replacement(data[5], 2)),
-        # [('A', 'A'), ('A', 'B'), ('A', 'C'), ('B', 'B'), ('B', 'C'), ('C', 'C')])
+        self.assertEqual(list(cp.combinations_with_replacement(data[3], 2)),
+        [(0, 0), (0, 1), (0, 2), (1, 1), (1, 2), (2, 2)])
+        self.assertEqual(list(cp.combinations_with_replacement(data[4], 2)),
+        [('A', 'A'), ('A', 'B'), ('A', 'B'), ('B', 'B'), ('B', 'B'), ('B', 'B')])
+        self.assertEqual(list(cp.combinations_with_replacement(data[5], 2)),
+        [('A', 'A'), ('A', 'B'), ('A', 'C'), ('B', 'B'), ('B', 'C'), ('C', 'C')])
         # self.assertEqual(list(cp.combinations_with_replacement(data[6], 2)),
         # [(1, 1), (1, [2]), ([2], [2])])
+        # self.assertEqual(list(cp.combinations_with_replacement(data[0], 0)), [()])
 
         # Error
-        # self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], 'a'))
-        # self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], [1, 2]))
-        # self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], (1, 2)))
-        # self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], {1, 2}))
-        # self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0][0], 2))
-        # self.assertRaises(ValueError, list, cp.combinations_with_replacement(data[0], -1))
-        # self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], 'a'))
+        self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], 'a'))
+        self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], [1, 2]))
+        self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], (1, 2)))
+        self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0], {1, 2}))
+        self.assertRaises(TypeError, list, cp.combinations_with_replacement(data[0][0], 2))
+        self.assertRaises(ValueError, list, cp.combinations_with_replacement(data[0], -1))
 
 
 if __name__ == '__main__':

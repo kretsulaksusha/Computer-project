@@ -19,11 +19,11 @@ class TestFunctions(unittest.TestCase):
         self.assertRaises(TypeError, list, cp.count({1, 2}))
 
     def test_cycle(self):
-        """Count test."""
-        iter_obj = [cp.cycle([1, 2]), cp.cycle({1, 2}), cp.cycle((1, 2)),
+        """Cycle test."""
+        iter_obj = [cp.cycle([1, 2]), cp.cycle({2, 3, 1}), cp.cycle((1, 2)),
                     cp.cycle('AB'), cp.cycle(range(2))]
         self.assertEqual([next(iter_obj[0]) for _ in range(3)], [1, 2, 1])
-        # self.assertEqual([next(iter_obj[1]) for _ in range(3)], [1, 2, 1])
+        self.assertEqual([next(iter_obj[1]) for _ in range(4)], [1, 2, 3, 1])
         self.assertEqual([next(iter_obj[2]) for _ in range(3)], [1, 2, 1])
         self.assertEqual([next(iter_obj[3]) for _ in range(3)], ['A', 'B', 'A'])
         self.assertEqual([next(iter_obj[4]) for _ in range(5)], [0, 1, 0, 1, 0])
@@ -39,31 +39,31 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual([next(cp.repeat((1, 2))) for _ in range(3)], [(1, 2), (1, 2), (1, 2)])
         self.assertEqual([next(cp.repeat({1, 2})) for _ in range(3)], [{1, 2}, {1, 2}, {1, 2}])
 
-        # self.assertEqual(list(cp.repeat(3, 3)), [3, 3, 3])
-        # self.assertEqual(list(cp.repeat('a', 3)), ['a', 'a', 'a'])
-        # self.assertEqual(list(cp.repeat([1, 2], 3)), [[1, 2], [1, 2], [1, 2]])
-        # self.assertEqual(list(cp.repeat((1, 2), 3)), [(1, 2), (1, 2), (1, 2)])
-        # self.assertEqual(list(cp.repeat({1, 2}, 3)), [{1, 2}, {1, 2}, {1, 2}])
+        self.assertEqual(list(cp.repeat(3, 3)), [3, 3, 3])
+        self.assertEqual(list(cp.repeat('a', 3)), ['a', 'a', 'a'])
+        self.assertEqual(list(cp.repeat([1, 2], 3)), [[1, 2], [1, 2], [1, 2]])
+        self.assertEqual(list(cp.repeat((1, 2), 3)), [(1, 2), (1, 2), (1, 2)])
+        self.assertEqual(list(cp.repeat({1, 2}, 3)), [{1, 2}, {1, 2}, {1, 2}])
 
         # Errors
-        # self.assertRaises(TypeError, list, cp.repeat(1, '1'))
-        # self.assertRaises(TypeError, list, cp.repeat([1, 2], 'a'))
+        self.assertRaises(TypeError, list, cp.repeat(1, '1'))
+        self.assertRaises(TypeError, list, cp.repeat([1, 2], 'a'))
 
     def test_product(self):
         """Product test."""
         data = [[1], [1, 2], (1, 2), {1, 2}, range(3)]
         self.assertEqual(list(cp.product(data[0])), [(1,)])
-        # self.assertEqual(list(cp.product(data[0], repeat=3)), [(1, 1, 1)])
+        self.assertEqual(list(cp.product(data[0], repeat_obj=3)), [(1, 1, 1)])
         self.assertEqual(list(cp.product(data[1])), [(1,), (2,)])
         self.assertEqual(list(cp.product(data[2])), [(1,), (2,)])
-        # self.assertEqual(list(cp.product(data[2], repeat=2)), [(1, 1), (1, 2), (2, 1), (2, 2)])
+        self.assertEqual(list(cp.product(data[2], repeat_obj=2)), [(1, 1), (1, 2), (2, 1), (2, 2)])
         self.assertEqual(list(cp.product(data[3])), [(1,), (2,)])
         self.assertEqual(list(cp.product(data[4])), [(0,), (1,), (2,)])
         self.assertEqual(list(cp.product('ABC', 'x')), [('A', 'x'), ('B', 'x'), ('C', 'x')])
 
         # Errors
-        # self.assertRaises(TypeError, list, cp.product(2))
-        # self.assertRaises(TypeError, list, cp.product(data[1], repeat='1'))
+        self.assertRaises(TypeError, list, cp.product(2))
+        self.assertRaises(TypeError, list, cp.product(data[1], repeat_obj='1'))
 
     def test_permutations(self):
         """Permutations test."""

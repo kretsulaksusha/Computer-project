@@ -157,41 +157,37 @@ def combinations(iterable, number: int):
     """
     if not hasattr(iterable, '__iter__'):
         raise TypeError(f"'{type(iterable)}' object is not iterable")
-    iterable = list(iterable)
     if not isinstance(number, int):
         raise TypeError(f'number "{type(number)}" object cannot be interpreted as an integer')
     if number < 0:
         raise ValueError("number must be non-negative")
     if number > len(iterable):
         return None
-    history = set()
+    indexes = list(range(number))
+    n = len(iterable) - 1
+    index_to_change = indexes[-1]
+    for _ in range(int(factorial(len(iterable))/int(factorial(number)*factorial(len(iterable)-number)))-1):
+        yield tuple([iterable[i] for i in indexes])
 
-    to_compare = list(range(len(iterable)))
+        if indexes[index_to_change] < n:
+            indexes[index_to_change] += 1
+        else:
+            counter = 0
+            for i in reversed(range(len(indexes))):
+                if indexes[i] != n - counter:
+                    index_to_change = i
+                    indexes[index_to_change] += 1
+                    break
+                counter+=1
+            for i in range(index_to_change+1, number):
+                indexes[i] = indexes[i-1]+1
+            index_to_change = len(indexes)-1
 
-    yield tuple(iterable[:number])
-    history.add(tuple(sorted(to_compare[:number])))
-
-
-    for _ in range(int(factorial(len(iterable))-1)):
-        n = len(iterable)-1
-        j = n-1
-        while to_compare[j]>to_compare[j+1]:
-            j-=1
-        k = n
-        while to_compare[j]>to_compare[k]:
-            k-=1
-        iterable[j], iterable[k] = iterable[k], iterable[j]
-        to_compare[j], to_compare[k] = to_compare[k], to_compare[j]
-        r = n
-        s = j+1
-        while r>s:
-            iterable[r], iterable[s] = iterable[s], iterable[r]
-            to_compare[r], to_compare[s] = to_compare[s], to_compare[r]
-            r-=1
-            s+=1
-        if tuple(sorted(to_compare[:number])) not in history:
-            history.add(tuple(sorted(to_compare[:number])))
-            yield tuple(iterable[:number])
+        if indexes == list(range(len(iterable) - number, len(iterable))):
+            temp = []
+            for i in range(len(iterable) - number, len(iterable)):
+                temp.append(iterable[i])
+            yield tuple(temp)
 
 
 def combinations_with_replacement(iterable, number: int):

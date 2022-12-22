@@ -1,5 +1,5 @@
 # Recreated itertools library
-
+We thank Julia and Yuri for our knowledge of discrete mathematics. Really grateful to assistants for this project, great opportunity to develop skills of math and programming. In this module we have used materials from lectures, ecspecially from 9 lecture, where we have found the algorithms for permutations and combinations.
 ## Functions:
 - ### count()
 Description: Count from a `number` by `step` forever

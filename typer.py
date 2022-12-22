@@ -57,7 +57,13 @@ if __name__ == "__main__":
 # list(product([2, 3], [4], ["a", "b"]))
 # sleep
 # list(product([1, 2], [4, 3], repeat_obj=2))[:4]""")
-    type_string("""list(permutations([1, 2, 3]))
-sleep
-list(permutations([1, "2", [3]], 2))
-sleep""")
+    # type_string("""list(permutations([1, 2, 3]))
+# sleep
+# list(permutations([1, "2", [3]], 2))
+# sleep""")
+    # type_string("""list(combinations([1, 2, 3, 4], 2))
+# sleep
+# list(combinations([1, "a", 3, [2]], 3))""")
+    # type_string("""list(combinations_with_replacement([1, 2, 3, 4], 2))
+# sleep
+# list(combinations_with_replacement([1, "a", [2]], 2))""")

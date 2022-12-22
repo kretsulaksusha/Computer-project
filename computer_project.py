@@ -196,13 +196,15 @@ def combinations(iterable, number: int):
         return None
     if number == 0:
         return []
+    if isinstance(iterable, str):
+        iterable = [*iterable]
     indexes = list(range(number))
     n = len(iterable) - 1
     index_to_change = indexes[-1]
     history = []
     while True:
-        if tuple([iterable[i] for i in indexes]) not in history:
-            history.append(tuple([iterable[i] for i in indexes]))
+        if tuple(indexes) not in history:
+            history.append(tuple(indexes))
             yield tuple([iterable[i] for i in indexes])
         else:
             break
@@ -215,17 +217,17 @@ def combinations(iterable, number: int):
                     index_to_change = i
                     indexes[index_to_change] += 1
                     break
-                counter += 1
-            for i in range(index_to_change + 1, number):
-                indexes[i] = indexes[i - 1] + 1
-            index_to_change = len(indexes) - 1
+                counter+=1
+            for i in range(index_to_change+1, number):
+                indexes[i] = indexes[i-1]+1
+            index_to_change = len(indexes)-1
 
         if indexes == list(range(len(iterable) - number, len(iterable))):
             temp = []
             for i in range(len(iterable) - number, len(iterable)):
                 temp.append(iterable[i])
-            if tuple(temp) not in history:
-                history.append(tuple(temp))
+            if tuple(indexes) not in history:
+                history.append(tuple(indexes))
                 yield tuple(temp)
             else:
                 break

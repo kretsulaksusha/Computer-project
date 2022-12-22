@@ -99,7 +99,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(list(cp.combinations(data[1], 2)), [(1, 2)])
         self.assertEqual(list(cp.combinations(data[2], 2)), [(1, 'a')])
         self.assertEqual(list(cp.combinations(data[3], 2)), [(0, 1), (0, 2), (1, 2)])
-        # self.assertEqual(list(cp.combinations(data[4], 2)), [('A', 'B'), ('A', 'B'), ('B', 'B')])
+        self.assertEqual(list(cp.combinations(data[4], 2)), [('A', 'B'), ('A', 'B'), ('B', 'B')])
         self.assertEqual(list(cp.combinations(data[5], 2)), [('A', 'B'), ('A', 'C'), ('B', 'C')])
         self.assertEqual(list(cp.combinations(data[6], 2)), [(1, [2]), (1, 'a'), (1, 'b'),
         ([2], 'a'), ([2], 'b'), ('a', 'b')])

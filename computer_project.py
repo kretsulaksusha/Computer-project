@@ -52,7 +52,7 @@ def cycle(iterable):
 
 def repeat(value, repeat_obj=None):
     """
-    Return value forever
+    Yield same value
 
     Parameters
     ----------

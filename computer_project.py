@@ -19,10 +19,9 @@ def count(firstval: int | float = 0, step: int | float = 1):
     """
     if not isinstance(firstval, int) or not isinstance(step, int):
         raise TypeError("a number is required")
-    number = firstval
     while True:
-        yield number
-        number += step
+        yield firstval
+        firstval += step
 
 
 def cycle(iterable):

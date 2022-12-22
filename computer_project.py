@@ -18,7 +18,7 @@ def count(firstval: int | float = 0, step: int | float = 1):
     int | float
     """
     if not isinstance(firstval, int) or not isinstance(step, int):
-        raise TypeError('a number is required')
+        raise TypeError("a number is required")
     number = firstval
     while True:
         yield number
@@ -58,6 +58,8 @@ def repeat(value, repeat_obj=None):
     ----------
     value : any
         Value to repeat
+    repeat_obj : int, optional
+        Number of times to repeat value, by default None
 
     Yields
     ------
@@ -65,7 +67,9 @@ def repeat(value, repeat_obj=None):
         Value to repeat
     """
     if repeat_obj is not None and not isinstance(repeat_obj, int):
-        raise TypeError(f"'{type(repeat_obj)}' object cannot be interpreted as an integer")
+        raise TypeError(
+            f"'{type(repeat_obj)}' object cannot be interpreted as an integer"
+        )
     if repeat_obj is not None and repeat_obj <= 0:
         return []
     if repeat_obj:
@@ -84,6 +88,8 @@ def product(*iterables, repeat_obj=1):
     ----------
     *iterables : iterable
         Iterables to generate a cartesian product of
+    repeat_obj : int, optional
+        Number of times to repeat iterables, by default 1
 
     Yields
     ------
@@ -93,7 +99,9 @@ def product(*iterables, repeat_obj=1):
     if not hasattr(iterables, "__iter__"):
         raise TypeError(f"'{type(iterables)}' object is not iterable")
     if not isinstance(repeat_obj, int):
-        raise TypeError(f"'{type(repeat_obj)}' object cannot be interpreted as an integer")
+        raise TypeError(
+            f"'{type(repeat_obj)}' object cannot be interpreted as an integer"
+        )
     iterables = iterables * repeat_obj
     if len(iterables) == 0:
         yield ()
@@ -164,10 +172,12 @@ def combinations(iterable, number: int):
     """
     Documentation
     """
-    if not hasattr(iterable, '__iter__'):
+    if not hasattr(iterable, "__iter__"):
         raise TypeError(f"'{type(iterable)}' object is not iterable")
     if not isinstance(number, int):
-        raise TypeError(f'number "{type(number)}" object cannot be interpreted as an integer')
+        raise TypeError(
+            f'number "{type(number)}" object cannot be interpreted as an integer'
+        )
     if number < 0:
         raise ValueError("number must be non-negative")
     if number > len(iterable):
@@ -193,10 +203,10 @@ def combinations(iterable, number: int):
                     index_to_change = i
                     indexes[index_to_change] += 1
                     break
-                counter+=1
-            for i in range(index_to_change+1, number):
-                indexes[i] = indexes[i-1]+1
-            index_to_change = len(indexes)-1
+                counter += 1
+            for i in range(index_to_change + 1, number):
+                indexes[i] = indexes[i - 1] + 1
+            index_to_change = len(indexes) - 1
 
         if indexes == list(range(len(iterable) - number, len(iterable))):
             temp = []
@@ -213,10 +223,12 @@ def combinations_with_replacement(iterable, number: int):
     """
     Documentation
     """
-    if not hasattr(iterable, '__iter__'):
+    if not hasattr(iterable, "__iter__"):
         raise TypeError(f"'{type(iterable)}' object is not iterable")
     if not isinstance(number, int):
-        raise TypeError(f'number "{type(number)}" object cannot be interpreted as an integer')
+        raise TypeError(
+            f'number "{type(number)}" object cannot be interpreted as an integer'
+        )
     if number < 0:
         raise ValueError("number must be non-negative")
     if number == 0:

@@ -4,7 +4,7 @@
 - ### count()
 Description: Count from a `number` by `step` forever
 
-In an infinite loop yield `number` and increase it by 1
+In an infinite loop yield `number` and increase it by `step`
 
 Made by: Natalia
 ```python
@@ -38,9 +38,9 @@ def cycle(iterable):
 ```
 
 - ### repeat()
-Description: Yield same value
+Description: Yield the same value
 
-Repeatedly yield the same value
+Repeatedly yield the same value: infinitely or a set number of times
 
 Made by: Yulia
 ```python
@@ -88,7 +88,7 @@ def product(*iterables, repeat_obj=1):
 - ### permutations()
 Description: Generate all permutations of length `number` of elements in `iterable`
 
-Get permutations of an iterable of length `number`
+Get permutations of an `iterable` of length `number`
 
 
 Made by: Sviatoslav
@@ -191,7 +191,7 @@ def combinations(iterable, number: int):
 ```
 
 - ### combinations_with_replacement()
-Description: Generate all combinations with replacement of length number of elements in iterable
+Description: Generate all combinations with replacement of length `number` of elements in `iterable`
 
 
 Made by: Yulia

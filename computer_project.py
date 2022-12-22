@@ -217,10 +217,10 @@ def combinations(iterable, number: int):
                     index_to_change = i
                     indexes[index_to_change] += 1
                     break
-                counter+=1
-            for i in range(index_to_change+1, number):
-                indexes[i] = indexes[i-1]+1
-            index_to_change = len(indexes)-1
+                counter += 1
+            for i in range(index_to_change + 1, number):
+                indexes[i] = indexes[i - 1] + 1
+            index_to_change = len(indexes) - 1
 
         if indexes == list(range(len(iterable) - number, len(iterable))):
             temp = []

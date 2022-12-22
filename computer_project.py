@@ -172,12 +172,18 @@ def combinations(iterable, number: int):
         raise ValueError("number must be non-negative")
     if number > len(iterable):
         return None
+    if number == 0:
+        return []
     indexes = list(range(number))
     n = len(iterable) - 1
     index_to_change = indexes[-1]
-    for _ in range(int(factorial(len(iterable))/int(factorial(number)*factorial(len(iterable)-number)))-1):
-        yield tuple([iterable[i] for i in indexes])
-
+    history = []
+    while True:
+        if tuple([iterable[i] for i in indexes]) not in history:
+            history.append(tuple([iterable[i] for i in indexes]))
+            yield tuple([iterable[i] for i in indexes])
+        else:
+            break
         if indexes[index_to_change] < n:
             indexes[index_to_change] += 1
         else:
@@ -196,7 +202,11 @@ def combinations(iterable, number: int):
             temp = []
             for i in range(len(iterable) - number, len(iterable)):
                 temp.append(iterable[i])
-            yield tuple(temp)
+            if tuple(temp) not in history:
+                history.append(tuple(temp))
+                yield tuple(temp)
+            else:
+                break
 
 
 def combinations_with_replacement(iterable, number: int):
@@ -209,12 +219,14 @@ def combinations_with_replacement(iterable, number: int):
         raise TypeError(f'number "{type(number)}" object cannot be interpreted as an integer')
     if number < 0:
         raise ValueError("number must be non-negative")
+    if number == 0:
+        return []
     el_lst = []
     counter = 2
 
     if number < 2:
         for el in iterable:
-            yield tuple(str(el))
+            yield tuple([el])
         return None
     for el in range(len(iterable)):
         for subel in range(el, len(iterable)):
@@ -229,6 +241,5 @@ def combinations_with_replacement(iterable, number: int):
                 new_lst.append(part)
         el_lst = new_lst
         counter += 1
-    el_lst = sorted(el_lst)
     for el in el_lst:
         yield tuple(el)

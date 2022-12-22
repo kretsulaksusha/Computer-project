@@ -170,7 +170,19 @@ def permutations(iterable, number: int = None):
 
 def combinations(iterable, number: int):
     """
-    Documentation
+    Generate all combinations of length number of elements in iterable
+
+    Parameters
+    ----------
+    iterable : iterable
+        Iterable to generate combinations of
+    number : int
+        Length of combinations
+
+    Yields
+    ------
+    tuple
+        Tuple of elements from iterable - a combination
     """
     if not hasattr(iterable, "__iter__"):
         raise TypeError(f"'{type(iterable)}' object is not iterable")
@@ -221,7 +233,19 @@ def combinations(iterable, number: int):
 
 def combinations_with_replacement(iterable, number: int):
     """
-    Documentation
+    Generate all combinations with replacement of length number of elements in iterable
+
+    Parameters
+    ----------
+    iterable : iterable
+        Iterable to generate combinations of
+    number : int
+        Length of combinations
+
+    Yields
+    ------
+    tuple
+        Tuple of elements from iterable - a combination
     """
     if not hasattr(iterable, "__iter__"):
         raise TypeError(f"'{type(iterable)}' object is not iterable")

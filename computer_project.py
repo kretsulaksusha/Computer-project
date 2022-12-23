@@ -262,8 +262,8 @@ def combinations_with_replacement(iterable, number: int):
     counter = 2
 
     if number < 2:
-        for i, el in enumerate(iterable):
-            yield tuple([i])
+        for el in iterable:
+            yield tuple([el])
         return None
     for el in range(len(iterable)):
         for subel in range(el, len(iterable)):

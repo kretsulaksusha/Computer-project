@@ -11,10 +11,9 @@ Made by: Natalia
 def count(firstval: int | float = 0, step: int | float = 1):
     if not isinstance(firstval, int) or not isinstance(step, int):
         raise TypeError("a number is required")
-    number = firstval
     while True:
-        yield number
-        number += step
+        yield firstval
+        firstval += step
 ```
 
 - ### cycle()
@@ -67,8 +66,9 @@ Get a cartesian product of some iterables
 Made by: Radomyr
 ```python
 def product(*iterables, repeat_obj=1):
-    if not hasattr(iterables, "__iter__"):
-        raise TypeError(f"'{type(iterables)}' object is not iterable")
+    for i in iterables:
+        if not hasattr(i, "__iter__"):
+            raise TypeError(f"'{type(i)}' object is not iterable")
     if not isinstance(repeat_obj, int):
         raise TypeError(
             f"'{type(repeat_obj)}' object cannot be interpreted as an integer"
@@ -155,13 +155,15 @@ def combinations(iterable, number: int):
         return None
     if number == 0:
         return []
+    if isinstance(iterable, str):
+        iterable = [*iterable]
     indexes = list(range(number))
     n = len(iterable) - 1
     index_to_change = indexes[-1]
     history = []
     while True:
-        if tuple([iterable[i] for i in indexes]) not in history:
-            history.append(tuple([iterable[i] for i in indexes]))
+        if tuple(indexes) not in history:
+            history.append(tuple(indexes))
             yield tuple([iterable[i] for i in indexes])
         else:
             break
@@ -183,8 +185,8 @@ def combinations(iterable, number: int):
             temp = []
             for i in range(len(iterable) - number, len(iterable)):
                 temp.append(iterable[i])
-            if tuple(temp) not in history:
-                history.append(tuple(temp))
+            if tuple(indexes) not in history:
+                history.append(tuple(indexes))
                 yield tuple(temp)
             else:
                 break
@@ -218,19 +220,19 @@ def combinations_with_replacement(iterable, number: int):
         return None
     for el in range(len(iterable)):
         for subel in range(el, len(iterable)):
-            el_lst.append([iterable[el], iterable[subel]])
+            el_lst.append([el, subel])
     while counter != number:
         new_lst = []
-        for subel in iterable:
+        for i, subel in enumerate(iterable):
             for ind in range(len(el_lst)):
-                part = sorted(el_lst[ind] + [subel])
+                part = sorted(el_lst[ind] + [i])
                 if part in new_lst:
                     continue
                 new_lst.append(part)
         el_lst = new_lst
         counter += 1
     for el in el_lst:
-        yield tuple(el)
+        yield tuple(iterable[i] for i in el)
 ```
 
 - ### Unittests

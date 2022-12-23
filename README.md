@@ -244,4 +244,4 @@ Made by: Ksenia
 ## Presentation
 
 
-Made by: Ksenia
+Made by: Ksenia, Sviatoslav, Radomyr
